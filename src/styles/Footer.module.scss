@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins";
+
+.footer {
+  background-color: $bg-footer-color;
+  color: $secondary-color;
+  padding: 1.25rem;
+  height: 8.5rem;
+  @include flex-center(space-between, center);
+
+  &__btn {
+    background-color: transparent;
+    border: 1px solid $footer-extra;
+    border-radius: 0.25rem;
+    @include flex-center(center, center);
+    gap: 0.875rem;
+    width: 17rem;
+    color: $secondary-color;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+.css__container {
+  width: 6rem;
+  height: 6rem;
+  border: 1px solid $footer-extra;
+  padding: 0.5rem 0.75rem;
+}
+
+.css__text {
+  text-transform: uppercase;
+  color: $footer-extra;
+  font-size: 1.25rem;
+  font-weight: 400;
+  display: block;
+}

@@ -1,0 +1,30 @@
+@import "variables";
+@import "mixins";
+
+.header {
+  background-color: $bg-header-color;
+  padding: 1.25rem;
+  @include flex-center(space-between, center);
+
+  .logo__container {
+    background-color: $logo-color;
+    border-radius: 10rem;
+    height: 4rem;
+    width: 4rem;
+    @include flex-center(center, center);
+  }
+
+  .logo {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .info__title {
+    font-size: 1rem;
+    font-weight: 400;
+
+    &--bold {
+      font-weight: 700;
+    }
+  }
+}
