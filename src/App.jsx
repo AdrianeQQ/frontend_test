@@ -56,8 +56,10 @@ const App = () => {
           </div>
           <div className={styles.block__second}>
             <h2 className={styles.block__title}>Blok drugi</h2>
-            <button className={styles.block__btn}>Zastąp</button>
-            <button className={styles.block__btn}>Doklej</button>
+            <div className={styles.block__btncontainer}>
+              <button className={styles.block__btn}>Zastąp</button>
+              <button className={styles.block__btn}>Doklej</button>
+            </div>
           </div>
           <div className={styles.block__third}>
             <h2

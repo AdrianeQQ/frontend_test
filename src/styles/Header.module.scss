@@ -27,4 +27,12 @@
       font-weight: 700;
     }
   }
+
+  @media screen and (min-width: 90rem) {
+    padding: 1.25rem 4rem;
+
+    .info__title {
+      font-size: 2rem;
+    }
+  }
 }

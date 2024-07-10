@@ -7,6 +7,7 @@
   padding: 1.25rem;
   height: 8.5rem;
   @include flex-center(space-between, center);
+  position: relative;
 
   &__btn {
     background-color: transparent;
@@ -23,17 +24,48 @@
   }
 }
 
-.css__container {
-  width: 6rem;
-  height: 6rem;
-  border: 1px solid $footer-extra;
-  padding: 0.5rem 0.75rem;
+.css {
+  &__container {
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid $footer-extra;
+    padding: 0.5rem 0.75rem;
+  }
+
+  &__text {
+    text-transform: uppercase;
+    color: $footer-extra;
+    font-size: 1.25rem;
+    font-weight: 400;
+    display: block;
+  }
 }
 
-.css__text {
-  text-transform: uppercase;
-  color: $footer-extra;
-  font-size: 1.25rem;
-  font-weight: 400;
-  display: block;
+.company {
+  &__container {
+    display: none;
+  }
+
+  @media screen and (min-width: 90rem) {
+    &__container {
+      @include flex-center(center, center);
+      gap: 0.75rem;
+      color: $footer-extra;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &__divider {
+      width: 3.5rem;
+      height: 1px;
+      background-color: $footer-extra;
+    }
+
+    &__text {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+  }
 }

@@ -1,25 +1,43 @@
 @import "variables";
 @import "mixins";
 
-.main__container {
-  min-height: calc(100vh - 6.5rem - 8.5rem);
-  background-color: $bg-color;
-  padding: 2rem;
-}
+.main {
+  &__container {
+    min-height: calc(100vh - 6.5rem - 8.5rem);
+    background-color: $bg-color;
+    padding: 2rem;
+  }
 
-.main__title {
-  font-weight: 400;
-  font-size: 2rem;
-  text-align: center;
-  @include text-shadow($black);
-}
+  &__title {
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: center;
+    @include text-shadow($black);
+  }
 
-.main__divider {
-  background-color: $primary-color;
-  height: 1px;
-  @include center-block(10rem);
-  margin-top: 1rem;
-  margin-bottom: 4rem;
+  &__divider {
+    background-color: $primary-color;
+    height: 1px;
+    @include center-block(10rem);
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  @media screen and (min-width: 90rem) {
+    &__title {
+      font-size: 3rem;
+    }
+
+    &__divider {
+      @include center-block(14.5rem);
+      margin-top: 1.25rem;
+      margin-bottom: 7rem;
+    }
+
+    &__container {
+      padding: 4rem 5rem;
+    }
+  }
 }
 
 .radio {
@@ -49,6 +67,21 @@
     cursor: pointer;
     display: inline-block;
   }
+
+  &__label {
+    color: $secondary-color;
+  }
+
+  @media screen and (min-width: 90rem) {
+    &__custom {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    &__label {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 .block {
@@ -68,6 +101,7 @@
   &__container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
     row-gap: 3.5rem;
   }
 
@@ -79,14 +113,19 @@
     background-color: transparent;
     border: 1px solid $primary-color;
     border-radius: 0.25rem;
-    display: inline-block;
-    margin-bottom: 1.125rem;
     width: 11.25rem;
     color: $secondary-color;
     padding: 1rem;
     text-transform: uppercase;
     font-size: 1rem;
     font-weight: 700;
+    margin-left: auto;
+
+    &container {
+      @include flex-center(center, center);
+      gap: 1.125rem;
+      flex-direction: column;
+    }
   }
 
   &__third {
@@ -97,5 +136,33 @@
   &__para {
     font-size: 1rem;
     color: $secondary-color;
+  }
+
+  @media screen and (min-width: 90rem) {
+    &__container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    &__third {
+      grid-column: 3;
+    }
+
+    &__title {
+      text-align: center;
+      margin-bottom: 4.5rem;
+    }
+
+    &__second {
+      text-align: center;
+    }
+
+    &__btn {
+      margin-left: 0;
+
+      &container {
+        flex-direction: row;
+        gap: 2.75rem;
+      }
+    }
   }
 }
