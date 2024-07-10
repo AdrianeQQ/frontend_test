@@ -1,8 +1,52 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styles from "./styles/Home.module.scss";
+import data from "./data/data.json";
+import { useState } from "react";
 
 const App = () => {
+  const [currentText, setCurrentText] = useState([]);
+  const [leftRandomText, setLeftRandomText] = useState(data.slice(2));
+  const [currentOption, setCurrentOption] = useState("");
+  const handleRadioChange = (e) => {
+    setCurrentOption(e.target.value);
+  };
+  const handleTextChange = (type) => {
+    let text;
+    switch (currentOption) {
+      case "1":
+        text = data[0];
+        break;
+      case "2":
+        text = data[1];
+        break;
+      case "3":
+        if (type === "replace") {
+          setLeftRandomText(data.slice(2));
+        }
+        if (leftRandomText.length === 0 && type === "append") {
+          alert("Text already added");
+          return;
+        }
+        console.log(leftRandomText);
+        text =
+          leftRandomText[Math.floor(Math.random() * leftRandomText.length)];
+        setLeftRandomText((prev) => prev.filter((item) => item !== text));
+        break;
+      default:
+        alert("Select an option");
+        return;
+    }
+    if (type === "replace") {
+      setCurrentText([text]);
+    } else if (type === "append") {
+      if (currentText.includes(text)) {
+        alert("Text already added");
+        return;
+      }
+      setCurrentText((prev) => prev.concat(text));
+    }
+  };
   return (
     <>
       <Header />
@@ -20,6 +64,7 @@ const App = () => {
                   name="options"
                   value="1"
                   className={styles.radio__input}
+                  onChange={handleRadioChange}
                 />
                 <span className={styles.radio__custom} />
                 <label htmlFor="option1" className={styles.radio__label}>
@@ -33,9 +78,10 @@ const App = () => {
                   name="options"
                   value="2"
                   className={styles.radio__input}
+                  onChange={handleRadioChange}
                 />
                 <span className={styles.radio__custom} />
-                <label htmlFor="option1" className={styles.radio__label}>
+                <label htmlFor="option2" className={styles.radio__label}>
                   Opcja druga
                 </label>
               </div>
@@ -46,9 +92,10 @@ const App = () => {
                   name="options"
                   value="3"
                   className={styles.radio__input}
+                  onChange={handleRadioChange}
                 />
                 <span className={styles.radio__custom} />
-                <label htmlFor="option1" className={styles.radio__label}>
+                <label htmlFor="option3" className={styles.radio__label}>
                   Opcja losowa
                 </label>
               </div>
@@ -57,8 +104,18 @@ const App = () => {
           <div className={styles.block__second}>
             <h2 className={styles.block__title}>Blok drugi</h2>
             <div className={styles.block__btncontainer}>
-              <button className={styles.block__btn}>Zastąp</button>
-              <button className={styles.block__btn}>Doklej</button>
+              <button
+                className={styles.block__btn}
+                onClick={() => handleTextChange("replace")}
+              >
+                Zastąp
+              </button>
+              <button
+                className={styles.block__btn}
+                onClick={() => handleTextChange("append")}
+              >
+                Doklej
+              </button>
             </div>
           </div>
           <div className={styles.block__third}>
@@ -68,19 +125,11 @@ const App = () => {
               Blok z długą nazwą która sama się przytnie jeśli tekst będzie zbyt
               długi
             </h2>
-            <p className={styles.block__para}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus, dolore ea rerum fugit reprehenderit voluptatibus,
-              corrupti magni eos quaerat autem dolores sequi atque fuga nisi
-              labore porro quod quis laudantium? Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Sunt laboriosam suscipit magnam qui
-              maxime accusamus beatae exercitationem delectus nisi non
-              perspiciatis molestiae assumenda facilis odit maiores alias, nam
-              quas necessitatibus. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Ipsum, inventore quaerat ratione, pariatur nisi
-              quae officiis odit beatae vitae, eaque voluptates obcaecati culpa
-              officia ut? Consequuntur repellat cumque et suscipit?
-            </p>
+            <div className={styles.block__para}>
+              {currentText
+                ? currentText.map((text, index) => <p key={index}>{text}</p>)
+                : "Kliknij przycisk aby zastąpić lub dokleić tekst"}
+            </div>
           </div>
         </div>
       </main>

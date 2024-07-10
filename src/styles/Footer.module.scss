@@ -46,7 +46,7 @@
     display: none;
   }
 
-  @media screen and (min-width: 90rem) {
+  @media screen and (min-width: 60rem) {
     &__container {
       @include flex-center(center, center);
       gap: 0.75rem;

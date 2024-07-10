@@ -4,19 +4,30 @@
 .header {
   background-color: $bg-header-color;
   padding: 1.25rem;
+  position: fixed;
+  top: 0;
+  width: 100vw;
   @include flex-center(space-between, center);
-
-  .logo__container {
-    background-color: $logo-color;
-    border-radius: 10rem;
-    height: 4rem;
-    width: 4rem;
-    @include flex-center(center, center);
-  }
 
   .logo {
     width: 2.5rem;
     height: 2.5rem;
+    color: $primary-color;
+
+    &__container {
+      background-color: $logo-color;
+      border-radius: 10rem;
+      height: 4rem;
+      width: 4rem;
+      cursor: pointer;
+      text-decoration: none;
+      @include flex-center(center, center);
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $logo-color-hover;
+      }
+    }
   }
 
   .info__title {

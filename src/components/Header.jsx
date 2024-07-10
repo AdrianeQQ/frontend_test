@@ -4,9 +4,9 @@ import { FaHtml5 } from "react-icons/fa";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.logo__container}>
+      <a href="/" className={styles.logo__container}>
         <FaHtml5 className={styles.logo} />
-      </div>
+      </a>
       <div className={styles.info__container}>
         <h2 className={styles.info__title}>
           Zadanie{" "}
