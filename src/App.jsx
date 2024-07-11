@@ -22,10 +22,14 @@ const App = () => {
     setCurrentOption(e.target.value);
   };
 
-  const getRandomText = () => {
+  const getRandomText = (type) => {
     const randomData = data
       .slice(2)
-      .filter((item) => !currentText.includes(item));
+      .filter(
+        (item) =>
+          (!currentText.includes(item) && type === "append") ||
+          type === "replace"
+      );
     if (randomData.length === 0) {
       setErrorText("Brak dostępnych losowych tekstów");
       return;
@@ -45,7 +49,7 @@ const App = () => {
         text = data[1];
         break;
       case "3":
-        text = getRandomText();
+        text = getRandomText(type);
         if (!text) return;
         break;
       default:
