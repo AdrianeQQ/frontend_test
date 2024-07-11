@@ -1,15 +1,21 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styles from "./styles/Home.module.scss";
-import data from "./data/data.json";
-import { useState } from "react";
+import dataFile from "./data/data.json";
+import { useEffect, useState } from "react";
 
 const App = () => {
+  const [data, setData] = useState(
+    JSON.parse(localStorage.getItem("data")) || dataFile
+  );
   const [currentText, setCurrentText] = useState([]);
-  const [leftRandomText, setLeftRandomText] = useState(data.slice(2));
   const [currentOption, setCurrentOption] = useState("");
   const [errorText, setErrorText] = useState("");
   const [isPersonalShown, setIsPersonalShown] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(data));
+  }, [data]);
   const handleRadioChange = (e) => {
     setCurrentOption(e.target.value);
   };
@@ -27,15 +33,15 @@ const App = () => {
         if (type === "replace") {
           const randomData = data.slice(2);
           text = randomData[Math.floor(Math.random() * randomData.length)];
-          setLeftRandomText(randomData.filter((item) => item !== text));
         } else if (type === "append") {
-          if (leftRandomText.length === 0) {
+          const randomTexts = data
+            .slice(2)
+            .filter((item) => !currentText.includes(item));
+          if (randomTexts.length === 0) {
             setErrorText("Brak dostępnych losowych tekstów");
             return;
           }
-          text =
-            leftRandomText[Math.floor(Math.random() * leftRandomText.length)];
-          setLeftRandomText((prev) => prev.filter((item) => item !== text));
+          text = randomTexts[Math.floor(Math.random() * randomTexts.length)];
         }
         break;
       default:
@@ -53,6 +59,9 @@ const App = () => {
         [...prev, text].sort((a, b) => a.localeCompare(b))
       );
     }
+  };
+  const handleEdit = () => {
+    setIsModalOpen(true);
   };
   return (
     <>
@@ -124,6 +133,68 @@ const App = () => {
                 Doklej
               </button>
             </div>
+            <button
+              className={`${styles.block__btn} ${styles["block__btn--special"]}`}
+              onClick={handleEdit}
+            >
+              Edytuj
+            </button>
+            {isModalOpen && (
+              <div
+                className={styles.modal__overlay}
+                onClick={() => setIsModalOpen(false)}
+              >
+                <div
+                  className={styles.modal}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <h2 className={styles.modal__title}>Aktualna lista</h2>
+                  {data.map((text, index) => (
+                    <div key={index} className={styles.modal__textoverlay}>
+                      <p className={styles.modal__text}>{text}</p>
+                      <div className={styles.modal__btncontainer}>
+                        <button
+                          className={styles.modal__btn}
+                          onClick={() => {
+                            const newText = prompt("Wprowadź nowy tekst", text);
+                            if (newText) {
+                              setData((prev) =>
+                                prev.map((item) =>
+                                  item === text ? newText : item
+                                )
+                              );
+                            }
+                          }}
+                        >
+                          Edytuj
+                        </button>
+                        <button
+                          className={styles.modal__btn}
+                          onClick={() =>
+                            setData((prev) =>
+                              prev.filter((item) => item !== text)
+                            )
+                          }
+                        >
+                          Usuń
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    className={`${styles.modal__btn} ${styles["modal__btn--special"]}`}
+                    onClick={() => {
+                      const newText = prompt("Wprowadź nowy tekst");
+                      if (newText) {
+                        setData((prev) => [...prev, newText]);
+                      }
+                    }}
+                  >
+                    Dodaj
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
           <div className={styles.block__third}>
             <h2
@@ -145,9 +216,9 @@ const App = () => {
         showIsPersonal={() => setIsPersonalShown(true)}
         resetSettings={() => {
           setCurrentText([]);
-          setLeftRandomText(data.slice(2));
           setErrorText("");
           setIsPersonalShown(false);
+          setData(dataFile);
         }}
       />
     </>
