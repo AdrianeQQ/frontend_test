@@ -1,7 +1,7 @@
 import styles from "../styles/Header.module.scss";
 import { FaHtml5 } from "react-icons/fa";
 
-const Header = () => {
+const Header = ({ isPersonalShown }) => {
   return (
     <header className={styles.header}>
       <a href="/" className={styles.logo__container}>
@@ -12,6 +12,9 @@ const Header = () => {
           Zadanie{" "}
           <span className={styles["info__title--bold"]}>rekrutacyjne</span>
         </h2>
+        {isPersonalShown && (
+          <h3 className={styles.info__personal}>Adrian Garbowski</h3>
+        )}
       </div>
     </header>
   );

@@ -1,11 +1,11 @@
 import styles from "../styles/Footer.module.scss";
-import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowUp, IoIosArrowForward } from "react-icons/io";
 
-const Footer = () => {
+const Footer = ({ showIsPersonal, resetSettings }) => {
   return (
     <footer className={styles.footer}>
       <div className={styles.css__container}>
-        <h2 className={styles.css__text}>
+        <h2 className={styles.css__textcontainer}>
           <span className={styles.css__text}>CSS</span>
           <span className={styles.css__text}>is</span>
           <span className={styles.css__text}>awesome</span>
@@ -16,9 +16,22 @@ const Footer = () => {
         <p className={styles.company__text}>nabthat</p>
         <div className={styles.company__divider} />
       </div>
-      <button className={styles.footer__btn}>
-        Pokaż <IoIosArrowUp className={styles.footer__icon} />
-      </button>
+      <div className={styles.footer__btncontainer}>
+        <input type="checkbox" id="toggle" className={styles.footer__toggle} />
+        <label htmlFor="toggle" className={styles.footer__btn}>
+          Pokaż <IoIosArrowUp className={styles.footer__icon} />
+        </label>
+        <div className={styles.footer__frame}>
+          <button className={styles.frame__btn} onClick={resetSettings}>
+            <IoIosArrowForward className={styles.frame__icon} /> Zresetuj
+            ustawienia
+          </button>
+          <button className={styles.frame__btn} onClick={showIsPersonal}>
+            <IoIosArrowForward className={styles.frame__icon} /> Pokaż dane
+            osobowe
+          </button>
+        </div>
+      </div>
     </footer>
   );
 };

@@ -30,20 +30,37 @@
     }
   }
 
-  .info__title {
-    font-size: 1rem;
-    font-weight: 400;
+  .info {
+    &__container {
+      text-align: right;
+    }
 
-    &--bold {
-      font-weight: 700;
+    &__personal {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    &__title {
+      font-size: 1rem;
+      font-weight: 400;
+
+      &--bold {
+        font-weight: 700;
+      }
     }
   }
 
   @media screen and (min-width: 90rem) {
     padding: 1.25rem 4rem;
 
-    .info__title {
-      font-size: 2rem;
+    .info {
+      &__personal {
+        font-size: 2rem;
+      }
+
+      &__title {
+        font-size: 2rem;
+      }
     }
   }
 }

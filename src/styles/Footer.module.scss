@@ -8,9 +8,10 @@
   height: 8.5rem;
   @include flex-center(space-between, center);
   position: relative;
+  z-index: 0;
 
   &__btn {
-    background-color: transparent;
+    background-color: $bg-footer-color;
     border: 1px solid $footer-extra;
     border-radius: 0.25rem;
     @include flex-center(center, center);
@@ -21,6 +22,86 @@
     text-transform: uppercase;
     font-size: 1rem;
     font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &container {
+      position: relative;
+
+      &:hover {
+        .footer__btn {
+          color: $primary-color;
+          border-color: $primary-color;
+        }
+
+        .footer__icon {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  &__icon {
+    transition: transform 0.3s ease;
+  }
+
+  &__toggle {
+    display: none;
+
+    &:checked ~ .footer__btn {
+      color: $primary-color;
+      border-color: $primary-color;
+
+      .footer__icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__frame {
+    width: 17rem;
+    transition: all 0.5s ease-in-out;
+    transform: translateY(0);
+    opacity: 0;
+    background-color: $primary-color;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    padding: 1.5rem;
+    @include flex-center(center, flex-start);
+    gap: 0.75rem;
+    flex-direction: column;
+    border-radius: 0.25rem;
+    cursor: default;
+    z-index: -1;
+    box-shadow: 0 0 1rem $black;
+  }
+
+  &__toggle:checked + .footer__btn + .footer__frame {
+    transform: translate(-50%, -205%);
+    opacity: 1;
+  }
+}
+
+.frame {
+  &__btn {
+    @include flex-center(center, center);
+    gap: 0.75rem;
+    border: none;
+    background-color: transparent;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $logo-color-hover;
+    }
+  }
+
+  &__icon {
+    width: 1rem;
+    height: 1rem;
   }
 }
 
@@ -30,14 +111,30 @@
     height: 6rem;
     border: 1px solid $footer-extra;
     padding: 0.5rem 0.75rem;
+    transition: all 1s ease-in-out;
+    cursor: pointer;
+    color: $footer-extra;
+
+    &:hover {
+      transform: rotate(360deg);
+      border-color: $logo-color-hover;
+
+      .css__textcontainer {
+        transform: rotate(-360deg);
+        color: $secondary-color;
+      }
+    }
   }
 
   &__text {
     text-transform: uppercase;
-    color: $footer-extra;
     font-size: 1.25rem;
     font-weight: 400;
     display: block;
+
+    &container {
+      transition: all 1s ease-in-out;
+    }
   }
 }
 

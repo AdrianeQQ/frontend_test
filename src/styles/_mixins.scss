@@ -3,13 +3,3 @@
   justify-content: $justify;
   align-items: $align;
 }
-
-@mixin text-shadow($color, $x: 1px, $y: 1px, $blur: 0.1rem) {
-  text-shadow: $x $y $blur $color;
-}
-
-@mixin center-block($width) {
-  width: $width;
-  margin-left: auto;
-  margin-right: auto;
-}

@@ -8,10 +8,13 @@ const App = () => {
   const [currentText, setCurrentText] = useState([]);
   const [leftRandomText, setLeftRandomText] = useState(data.slice(2));
   const [currentOption, setCurrentOption] = useState("");
+  const [errorText, setErrorText] = useState("");
+  const [isPersonalShown, setIsPersonalShown] = useState(false);
   const handleRadioChange = (e) => {
     setCurrentOption(e.target.value);
   };
   const handleTextChange = (type) => {
+    setErrorText("");
     let text;
     switch (currentOption) {
       case "1":
@@ -22,34 +25,38 @@ const App = () => {
         break;
       case "3":
         if (type === "replace") {
-          setLeftRandomText(data.slice(2));
+          const randomData = data.slice(2);
+          text = randomData[Math.floor(Math.random() * randomData.length)];
+          setLeftRandomText(randomData.filter((item) => item !== text));
+        } else if (type === "append") {
+          if (leftRandomText.length === 0) {
+            setErrorText("Brak dostępnych losowych tekstów");
+            return;
+          }
+          text =
+            leftRandomText[Math.floor(Math.random() * leftRandomText.length)];
+          setLeftRandomText((prev) => prev.filter((item) => item !== text));
         }
-        if (leftRandomText.length === 0 && type === "append") {
-          alert("Text already added");
-          return;
-        }
-        console.log(leftRandomText);
-        text =
-          leftRandomText[Math.floor(Math.random() * leftRandomText.length)];
-        setLeftRandomText((prev) => prev.filter((item) => item !== text));
         break;
       default:
-        alert("Select an option");
+        setErrorText("Wybierz opcję");
         return;
     }
     if (type === "replace") {
       setCurrentText([text]);
     } else if (type === "append") {
       if (currentText.includes(text)) {
-        alert("Text already added");
+        setErrorText("Tekst już istnieje");
         return;
       }
-      setCurrentText((prev) => prev.concat(text));
+      setCurrentText((prev) =>
+        [...prev, text].sort((a, b) => a.localeCompare(b))
+      );
     }
   };
   return (
     <>
-      <Header />
+      <Header isPersonalShown={isPersonalShown} />
       <main className={styles.main__container}>
         <h1 className={styles.main__title}>Nagłówek H1</h1>
         <div className={styles.main__divider} />
@@ -129,11 +136,20 @@ const App = () => {
               {currentText
                 ? currentText.map((text, index) => <p key={index}>{text}</p>)
                 : "Kliknij przycisk aby zastąpić lub dokleić tekst"}
+              {errorText && <p className={styles.block__error}>{errorText}</p>}
             </div>
           </div>
         </div>
       </main>
-      <Footer />
+      <Footer
+        showIsPersonal={() => setIsPersonalShown(true)}
+        resetSettings={() => {
+          setCurrentText([]);
+          setLeftRandomText(data.slice(2));
+          setErrorText("");
+          setIsPersonalShown(false);
+        }}
+      />
     </>
   );
 };

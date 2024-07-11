@@ -6,21 +6,21 @@
     min-height: calc(100vh - 8.5rem);
     background-color: $bg-color;
     padding: 8.5rem 2rem 2rem 2rem;
+    z-index: -2;
   }
 
   &__title {
     font-weight: 400;
     font-size: 2rem;
     text-align: center;
-    @include text-shadow($black);
+    text-shadow: 1px 1px 0.125rem $black;
   }
 
   &__divider {
     background-color: $primary-color;
     height: 1px;
-    @include center-block(10rem);
-    margin-top: 1rem;
-    margin-bottom: 4rem;
+    width: 10rem;
+    margin: 1rem auto 4rem auto;
   }
 
   @media screen and (min-width: 90rem) {
@@ -29,9 +29,8 @@
     }
 
     &__divider {
-      @include center-block(14.5rem);
-      margin-top: 1.25rem;
-      margin-bottom: 7rem;
+      width: 14.5rem;
+      margin: 1.25rem auto 7rem auto;
     }
 
     &__container {
@@ -112,6 +111,7 @@
     &--long {
       display: -webkit-box;
       -webkit-box-orient: vertical;
+      line-clamp: 1;
       -webkit-line-clamp: 1;
       overflow: hidden;
     }
@@ -161,6 +161,11 @@
   &__para {
     font-size: 1rem;
     color: $secondary-color;
+  }
+
+  &__error {
+    color: $error-color;
+    margin-top: 0.5rem;
   }
 
   @media screen and (min-width: 60rem) {
