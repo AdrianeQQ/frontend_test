@@ -4,9 +4,9 @@
 .header {
   background-color: $bg-header-color;
   padding: 1.25rem;
-  position: fixed;
+  position: sticky;
   top: 0;
-  width: 100vw;
+  width: 100%;
   @include flex-center(space-between, center);
 
   &__logo-container {

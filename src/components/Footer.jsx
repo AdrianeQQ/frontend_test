@@ -21,16 +21,16 @@ const Footer = ({ showIsPersonal, resetSettings }) => {
         <label htmlFor="toggle" className={styles.footer__btn}>
           Pokaż <IoIosArrowUp className={styles.footer__icon} />
         </label>
-        <div className={styles.footer__frame}>
-          <button className={styles.frame__btn} onClick={resetSettings}>
-            <IoIosArrowForward className={styles.frame__icon} /> Zresetuj
-            ustawienia
-          </button>
-          <button className={styles.frame__btn} onClick={showIsPersonal}>
-            <IoIosArrowForward className={styles.frame__icon} /> Pokaż dane
-            osobowe
-          </button>
-        </div>
+      </div>
+      <div className={styles.footer__frame}>
+        <button className={styles.frame__btn} onClick={resetSettings}>
+          <IoIosArrowForward className={styles.frame__icon} /> Zresetuj
+          ustawienia
+        </button>
+        <button className={styles.frame__btn} onClick={showIsPersonal}>
+          <IoIosArrowForward className={styles.frame__icon} /> Pokaż dane
+          osobowe
+        </button>
       </div>
     </footer>
   );
