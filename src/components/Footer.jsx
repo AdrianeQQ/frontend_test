@@ -5,7 +5,7 @@ const Footer = ({ showIsPersonal, resetSettings }) => {
   return (
     <footer className={styles.footer}>
       <div className={styles.css__container}>
-        <h2 className={styles.css__textcontainer}>
+        <h2 className={styles["css__text-container"]}>
           <span className={styles.css__text}>CSS</span>
           <span className={styles.css__text}>is</span>
           <span className={styles.css__text}>awesome</span>
@@ -16,7 +16,7 @@ const Footer = ({ showIsPersonal, resetSettings }) => {
         <p className={styles.company__text}>nabthat</p>
         <div className={styles.company__divider} />
       </div>
-      <div className={styles.footer__btncontainer}>
+      <div className={styles["footer__btn-container"]}>
         <input type="checkbox" id="toggle" className={styles.footer__toggle} />
         <label htmlFor="toggle" className={styles.footer__btn}>
           Pokaż <IoIosArrowUp className={styles.footer__icon} />

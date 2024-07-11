@@ -25,7 +25,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
 
-    &container {
+    &-container {
       position: relative;
 
       &:hover {
@@ -56,6 +56,11 @@
         transform: rotate(180deg);
       }
     }
+
+    &:checked ~ .footer__frame {
+      transform: translate(-50%, -205%);
+      opacity: 1;
+    }
   }
 
   &__frame {
@@ -76,11 +81,6 @@
     cursor: default;
     z-index: -1;
     box-shadow: 0 0 1rem $black;
-  }
-
-  &__toggle:checked + .footer__btn + .footer__frame {
-    transform: translate(-50%, -205%);
-    opacity: 1;
   }
 }
 
@@ -109,19 +109,32 @@
   &__container {
     width: 6rem;
     height: 6rem;
-    border: 1px solid $footer-extra;
     padding: 0.5rem 0.75rem;
-    transition: all 1s ease-in-out;
     cursor: pointer;
-    color: $footer-extra;
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+      background-color: transparent;
+      border: 1px solid $footer-extra;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: all 1s ease-in-out;
+    }
 
     &:hover {
-      transform: rotate(360deg);
-      border-color: $logo-color-hover;
+      &::before {
+        transform: rotate(360deg);
+        border-color: $logo-color-hover;
+      }
 
-      .css__textcontainer {
-        transform: rotate(-360deg);
-        color: $secondary-color;
+      .css__text {
+        color: $primary-color;
       }
     }
   }
@@ -131,10 +144,8 @@
     font-size: 1.25rem;
     font-weight: 400;
     display: block;
-
-    &container {
-      transition: all 1s ease-in-out;
-    }
+    color: $footer-extra;
+    transition: color 1s ease-in-out;
   }
 }
 

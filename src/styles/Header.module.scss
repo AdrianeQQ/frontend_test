@@ -9,58 +9,54 @@
   width: 100vw;
   @include flex-center(space-between, center);
 
-  .logo {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: $primary-color;
+  &__logo-container {
+    background-color: $logo-color;
+    border-radius: 10rem;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    text-decoration: none;
+    @include flex-center(center, center);
+    transition: background-color 0.3s ease;
 
-    &__container {
-      background-color: $logo-color;
-      border-radius: 10rem;
-      height: 4rem;
-      width: 4rem;
-      cursor: pointer;
-      text-decoration: none;
-      @include flex-center(center, center);
-      transition: background-color 0.3s ease;
+    &:hover {
+      background-color: $logo-color-hover;
+    }
 
-      &:hover {
-        background-color: $logo-color-hover;
-      }
+    .logo {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: $primary-color;
     }
   }
 
-  .info {
-    &__container {
-      text-align: right;
-    }
+  &__info-container {
+    text-align: right;
+  }
 
-    &__personal {
-      font-size: 1rem;
-      font-weight: 400;
-    }
+  &__personal {
+    font-size: 1rem;
+    font-weight: 400;
+  }
 
-    &__title {
-      font-size: 1rem;
-      font-weight: 400;
+  &__title {
+    font-size: 1rem;
+    font-weight: 400;
 
-      &--bold {
-        font-weight: 700;
-      }
+    &--bold {
+      font-weight: 700;
     }
   }
 
   @media screen and (min-width: 90rem) {
     padding: 1.25rem 4rem;
 
-    .info {
-      &__personal {
-        font-size: 2rem;
-      }
+    &__personal {
+      font-size: 2rem;
+    }
 
-      &__title {
-        font-size: 2rem;
-      }
+    &__title {
+      font-size: 2rem;
     }
   }
 }

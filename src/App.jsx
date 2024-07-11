@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styles from "./styles/Home.module.scss";
 import dataFile from "./data/data.json";
-import { useEffect, useState } from "react";
 
 const App = () => {
   const [data, setData] = useState(
@@ -13,15 +13,30 @@ const App = () => {
   const [errorText, setErrorText] = useState("");
   const [isPersonalShown, setIsPersonalShown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
   }, [data]);
+
   const handleRadioChange = (e) => {
     setCurrentOption(e.target.value);
   };
+
+  const getRandomText = () => {
+    const randomData = data
+      .slice(2)
+      .filter((item) => !currentText.includes(item));
+    if (randomData.length === 0) {
+      setErrorText("Brak dostępnych losowych tekstów");
+      return;
+    }
+    return randomData[Math.floor(Math.random() * randomData.length)];
+  };
+
   const handleTextChange = (type) => {
     setErrorText("");
     let text;
+
     switch (currentOption) {
       case "1":
         text = data[0];
@@ -30,24 +45,14 @@ const App = () => {
         text = data[1];
         break;
       case "3":
-        if (type === "replace") {
-          const randomData = data.slice(2);
-          text = randomData[Math.floor(Math.random() * randomData.length)];
-        } else if (type === "append") {
-          const randomTexts = data
-            .slice(2)
-            .filter((item) => !currentText.includes(item));
-          if (randomTexts.length === 0) {
-            setErrorText("Brak dostępnych losowych tekstów");
-            return;
-          }
-          text = randomTexts[Math.floor(Math.random() * randomTexts.length)];
-        }
+        text = getRandomText();
+        if (!text) return;
         break;
       default:
         setErrorText("Wybierz opcję");
         return;
     }
+
     if (type === "replace") {
       setCurrentText([text]);
     } else if (type === "append") {
@@ -60,9 +65,31 @@ const App = () => {
       );
     }
   };
+
   const handleEdit = () => {
     setIsModalOpen(true);
   };
+
+  const handleTextEdit = (oldText) => {
+    const newText = prompt("Wprowadź nowy tekst", oldText);
+    if (newText && !data.includes(newText)) {
+      setData((prev) =>
+        prev.map((item) => (item === oldText ? newText : item))
+      );
+    }
+  };
+
+  const handleTextDelete = (text) => {
+    setData((prev) => prev.filter((item) => item !== text));
+  };
+
+  const handleTextAdd = () => {
+    const newText = prompt("Wprowadź nowy tekst");
+    if (newText && !data.includes(newText)) {
+      setData((prev) => [...prev, newText]);
+    }
+  };
+
   return (
     <>
       <Header isPersonalShown={isPersonalShown} />
@@ -81,9 +108,14 @@ const App = () => {
                   value="1"
                   className={styles.radio__input}
                   onChange={handleRadioChange}
+                  aria-labelledby="option1Label"
                 />
                 <span className={styles.radio__custom} />
-                <label htmlFor="option1" className={styles.radio__label}>
+                <label
+                  htmlFor="option1"
+                  id="option1Label"
+                  className={styles.radio__label}
+                >
                   Opcja pierwsza
                 </label>
               </div>
@@ -95,9 +127,14 @@ const App = () => {
                   value="2"
                   className={styles.radio__input}
                   onChange={handleRadioChange}
+                  aria-labelledby="option2Label"
                 />
                 <span className={styles.radio__custom} />
-                <label htmlFor="option2" className={styles.radio__label}>
+                <label
+                  htmlFor="option2"
+                  id="option2Label"
+                  className={styles.radio__label}
+                >
                   Opcja druga
                 </label>
               </div>
@@ -109,9 +146,14 @@ const App = () => {
                   value="3"
                   className={styles.radio__input}
                   onChange={handleRadioChange}
+                  aria-labelledby="option3Label"
                 />
                 <span className={styles.radio__custom} />
-                <label htmlFor="option3" className={styles.radio__label}>
+                <label
+                  htmlFor="option3"
+                  id="option3Label"
+                  className={styles.radio__label}
+                >
                   Opcja losowa
                 </label>
               </div>
@@ -119,7 +161,7 @@ const App = () => {
           </div>
           <div className={styles.block__second}>
             <h2 className={styles.block__title}>Blok drugi</h2>
-            <div className={styles.block__btncontainer}>
+            <div className={styles["block__btn-container"]}>
               <button
                 className={styles.block__btn}
                 onClick={() => handleTextChange("replace")}
@@ -150,31 +192,18 @@ const App = () => {
                 >
                   <h2 className={styles.modal__title}>Aktualna lista</h2>
                   {data.map((text, index) => (
-                    <div key={index} className={styles.modal__textoverlay}>
+                    <div key={index} className={styles["modal__text-overlay"]}>
                       <p className={styles.modal__text}>{text}</p>
-                      <div className={styles.modal__btncontainer}>
+                      <div className={styles["modal__btn-container"]}>
                         <button
                           className={styles.modal__btn}
-                          onClick={() => {
-                            const newText = prompt("Wprowadź nowy tekst", text);
-                            if (newText) {
-                              setData((prev) =>
-                                prev.map((item) =>
-                                  item === text ? newText : item
-                                )
-                              );
-                            }
-                          }}
+                          onClick={() => handleTextEdit(text)}
                         >
                           Edytuj
                         </button>
                         <button
                           className={styles.modal__btn}
-                          onClick={() =>
-                            setData((prev) =>
-                              prev.filter((item) => item !== text)
-                            )
-                          }
+                          onClick={() => handleTextDelete(text)}
                         >
                           Usuń
                         </button>
@@ -183,12 +212,7 @@ const App = () => {
                   ))}
                   <button
                     className={`${styles.modal__btn} ${styles["modal__btn--special"]}`}
-                    onClick={() => {
-                      const newText = prompt("Wprowadź nowy tekst");
-                      if (newText) {
-                        setData((prev) => [...prev, newText]);
-                      }
-                    }}
+                    onClick={handleTextAdd}
                   >
                     Dodaj
                   </button>
@@ -204,9 +228,11 @@ const App = () => {
               długi
             </h2>
             <div className={styles.block__para}>
-              {currentText
-                ? currentText.map((text, index) => <p key={index}>{text}</p>)
-                : "Kliknij przycisk aby zastąpić lub dokleić tekst"}
+              {currentText.length > 0 ? (
+                currentText.map((text, index) => <p key={index}>{text}</p>)
+              ) : (
+                <p>Kliknij przycisk aby zastąpić lub dokleić tekst</p>
+              )}
               {errorText && <p className={styles.block__error}>{errorText}</p>}
             </div>
           </div>

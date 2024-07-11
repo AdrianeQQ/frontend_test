@@ -4,16 +4,20 @@ import { FaHtml5 } from "react-icons/fa";
 const Header = ({ isPersonalShown }) => {
   return (
     <header className={styles.header}>
-      <a href="/" className={styles.logo__container}>
+      <a
+        href="/"
+        className={styles["header__logo-container"]}
+        aria-label="Homepage"
+      >
         <FaHtml5 className={styles.logo} />
       </a>
-      <div className={styles.info__container}>
-        <h2 className={styles.info__title}>
+      <div className={styles["header__info-container"]}>
+        <h2 className={styles.header__title}>
           Zadanie{" "}
-          <span className={styles["info__title--bold"]}>rekrutacyjne</span>
+          <span className={styles["header__title--bold"]}>rekrutacyjne</span>
         </h2>
         {isPersonalShown && (
-          <h3 className={styles.info__personal}>Adrian Garbowski</h3>
+          <h3 className={styles.header__personal}>Adrian Garbowski</h3>
         )}
       </div>
     </header>

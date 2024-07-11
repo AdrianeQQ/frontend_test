@@ -146,7 +146,7 @@
       color: $primary-color;
     }
 
-    &container {
+    &-container {
       @include flex-center(center, center);
       gap: 1.125rem;
       flex-direction: column;
@@ -185,7 +185,7 @@
     &__btn {
       margin-left: 0;
 
-      &container {
+      &-container {
         flex-direction: row;
         gap: 2.75rem;
       }
@@ -211,6 +211,8 @@
   box-shadow: 0 2px 0.5rem $black;
   max-width: 30rem;
   width: 100%;
+  max-height: 37.5rem;
+  overflow-y: auto;
 
   &__overlay {
     position: fixed;
@@ -233,8 +235,8 @@
   &__text {
     text-align: left;
 
-    &overlay {
-      padding: 0.125rem 0.25rem;
+    &-overlay {
+      padding: 0.25rem;
       background-color: $secondary-color;
       border-radius: 0.25rem;
       margin-bottom: 0.5rem;
@@ -262,7 +264,7 @@
       color: $modal-btn-hover;
     }
 
-    &container {
+    &-container {
       @include flex-center(center, center);
       gap: 0.5rem;
     }
