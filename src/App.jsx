@@ -114,12 +114,12 @@ const App = () => {
                   onChange={handleRadioChange}
                   aria-labelledby="option1Label"
                 />
-                <span className={styles.radio__custom} />
                 <label
                   htmlFor="option1"
                   id="option1Label"
                   className={styles.radio__label}
                 >
+                  <span className={styles.radio__custom} />
                   Opcja pierwsza
                 </label>
               </div>
@@ -133,12 +133,12 @@ const App = () => {
                   onChange={handleRadioChange}
                   aria-labelledby="option2Label"
                 />
-                <span className={styles.radio__custom} />
                 <label
                   htmlFor="option2"
                   id="option2Label"
                   className={styles.radio__label}
                 >
+                  <span className={styles.radio__custom} />
                   Opcja druga
                 </label>
               </div>
@@ -152,12 +152,12 @@ const App = () => {
                   onChange={handleRadioChange}
                   aria-labelledby="option3Label"
                 />
-                <span className={styles.radio__custom} />
                 <label
                   htmlFor="option3"
                   id="option3Label"
                   className={styles.radio__label}
                 >
+                  <span className={styles.radio__custom} />
                   Opcja losowa
                 </label>
               </div>

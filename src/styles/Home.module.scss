@@ -45,9 +45,6 @@
 
   &__item {
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
   }
 
   &__input {
@@ -56,7 +53,7 @@
     width: 0;
     height: 0;
 
-    &:checked + .radio__custom::after {
+    &:checked + .radio__label .radio__custom::after {
       display: block;
     }
   }
@@ -87,6 +84,9 @@
   &__label {
     color: $secondary-color;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   @media screen and (min-width: 90rem) {
